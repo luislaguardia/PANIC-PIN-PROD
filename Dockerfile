@@ -16,7 +16,7 @@ WORKDIR /app
 COPY --from=builder /app/app/build/libs/*.jar app.jar
 
 # Set the port (Render uses $PORT)
-EXPOSE 8080
+EXPOSE 8020
 
 # Start the app
 CMD ["java", "-jar", "app.jar"]

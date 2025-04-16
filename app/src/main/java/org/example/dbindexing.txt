@@ -1,0 +1,1 @@
+CREATE INDEX idx_userId_timestamp ON locations(userId, timestamp);

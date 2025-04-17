@@ -60,7 +60,7 @@ public class UserService {
             return new loginAuthResponseDTO(
                 true, 
                 "signin successful", 
-                Map.of("username", user.getUsername()), 
+                Map.of("username", user.getUsername(), "id", user.getId(), "email", user.getEmail(), "apiKey", user.getApiKey(), "fullname", user.getFullname(), "phoneno", user.getPhoneno(), "gender", user.getGender(), "birthday", user.getBirthday()), 
                 jwtService.generateToken(user.getUsername())
             );
             

@@ -21,6 +21,25 @@ public class FriendService {
     private UserService userService;
     
 
+    public boolean isFriendRequestPending(Long friendId, Long userId) {
+        Friendships friendship = friendRepository.findByUserIdAndFriendId(friendId, userId);
+        return friendship != null && "pending".equals(friendship.getStatus());
+    }
+
+    public void updateFriendRequestStatus(Long friendId, Long userId, String status) {
+        Friendships friendship = friendRepository.findByUserIdAndFriendId(friendId, userId);
+        if (friendship != null) {
+            friendship.setStatus(status);
+            friendRepository.save(friendship);
+        }
+    }
+
+    public void addFriend(Long userId, Long friendId, String status) {
+        Friendships friendship = new Friendships(userId, userId, friendId, status);
+        friendRepository.save(friendship);
+    }
+    
+
     public void sendFriendRequest(Long userId, Long friendId) {
         Friendships friendship = new Friendships(friendId, userId, friendId, "pending");
         friendRepository.save(friendship);

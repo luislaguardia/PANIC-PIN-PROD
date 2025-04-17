@@ -32,11 +32,24 @@ public class FriendsController {
             throw new RuntimeException("Invalid API Key");
         }
 
-        friendService.sendFriendRequest(userId, friendId);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Friend request sent");
-        response.put("status", "pending");
-        return response;
+        boolean isFriendRequestPending = friendService.isFriendRequestPending(friendId, userId);
+
+        if (isFriendRequestPending) {
+            friendService.updateFriendRequestStatus(friendId, userId, "Accepted");
+            friendService.addFriend(userId, friendId, "Accepted");
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Friend request accepted");
+            response.put("status", "accepted");
+            return response;
+        } else {
+            friendService.sendFriendRequest(userId, friendId);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Friend request sent");
+            response.put("status", "pending");
+            return response;
+        }
     }
 
     @PostMapping("/remove")

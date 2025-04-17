@@ -32,6 +32,13 @@ public class FriendsController {
             throw new RuntimeException("Invalid API Key");
         }
 
+        if (friendService.isFriendRequestPending(userId, friendId)) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Friend request already pending");
+            response.put("status", "pending");
+            return response;
+        }
+
         boolean isFriendRequestPending = friendService.isFriendRequestPending(friendId, userId);
 
         if (isFriendRequestPending) {

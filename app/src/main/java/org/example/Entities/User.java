@@ -27,13 +27,13 @@ public class User {
     private String fullname;
 
     @Column(name = "phoneno")
-    private String phoneno;
+    private String phoneno = "";
 
     @Column(name = "gender")
-    private String gender;
+    private String gender = "";
 
     @Column(name = "birthday")
-    private String birthday;
+    private String birthday = "";
 
     public User() {
         this.apiKey = UUID.randomUUID().toString();

@@ -56,13 +56,15 @@ public class UserService {
             new UsernamePasswordAuthenticationToken(
                 user.getUsername(), user.getHashedPassword()));
 
-        if (auth.isAuthenticated()) 
+        if (auth.isAuthenticated()) {
+            User user1 = getUserByUsername(user.getUsername());
             return new loginAuthResponseDTO(
                 true, 
                 "signin successful", 
-                Map.of("username", user.getUsername(), "id", user.getId(), "email", user.getEmail(), "apiKey", user.getApiKey(), "fullname", user.getFullname(), "phoneno", user.getPhoneno(), "gender", user.getGender(), "birthday", user.getBirthday()), 
-                jwtService.generateToken(user.getUsername())
+                Map.of("username", user1.getUsername(), "id", user1.getId(), "email", user1.getEmail(), "apiKey", user1.getApiKey(), "fullname", user1.getFullname(), "phoneno", user1.getPhoneno(), "gender", user1.getGender(), "birthday", user1.getBirthday()), 
+                jwtService.generateToken(user1.getUsername())
             );
+        }
             
         return new AuthResponseDTO(
             false, 
